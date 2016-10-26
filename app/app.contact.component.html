@@ -1,0 +1,27 @@
+<search></search>
+<div class="container-fluid">
+	<div class="panel panel-default">
+		<table class="table">
+		  <thead class="thead-default">
+		    <tr>
+		      <th>First Name</th>
+		      <th>Last Name</th>
+		      <th>Email Address</th>
+		      <th>Phone Number</th>
+		      <th>Company</th>
+		      <th>Delete</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let contact of contacts">
+		      <td>{{ contact.first_name }}</td>
+		      <td>{{ contact.last_name }}</td>
+		      <td>{{ contact.email_address }}</td>
+		      <td>{{ contact.phone_number }}</td>
+		      <td>{{ contact.company_name }}</td>
+		      <td ng-click="delete(contact.id)">X</td>
+		   </tr>
+		  </tbody>
+		</table>
+	</div>
+</div>

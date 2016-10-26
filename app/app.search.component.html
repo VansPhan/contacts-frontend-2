@@ -1,0 +1,20 @@
+<div class="container search">
+	<form>
+		<div class="input-group">
+			<input type="text" class="form-control" ng-model="input" placeholder="Search for...">
+			<span class="input-group-btn">
+				<button class="btn btn-success" type="button" (click)="clear()">Clear</button>
+			</span>
+		</div>
+		<input id="all" type="radio" name="filter" (click)="filter('all')" checked>
+		<label class="btn btn-default" for="all">All</label>
+		<input id="international" type="radio" name="filter" (click)="filter('international')">
+		<label class="btn btn-default" for="international">International Numbers</label>
+		<input id="ext" type="radio" name="filter" (click)="filter('ext')">
+		<label class="btn btn-default" for="ext">Extension Numbers</label>
+		<input id="com" type="radio" name="filter" (click)="filter('com')">
+		<label class="btn btn-default" for="com">.COM Emails</label>
+		<input id="email" type="radio" name="filter" (click)="filter('email')">
+		<label class="btn btn-default" for="email">A-Z Emails</label>
+	</form>
+</div>
