@@ -7,8 +7,13 @@ import 'rxjs/add/operator/map';
 export class ContactService {
 
 	constructor(private http: Http) {}
+	
 	getContacts() {
 		return this.http.get('https://contacts-backend.herokuapp.com/contacts')
 			.map(response => <Contact[]>response.json());
+	}
+
+	contacts() {
+		return this.contacts;
 	}
 }

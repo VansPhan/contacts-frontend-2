@@ -17,29 +17,31 @@ var SearchComponent = (function () {
     SearchComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.contactService.getContacts()
-            .subscribe(function (contacts) { return _this.contacts = contacts; });
-        if (Array.isArray(this.contacts)) {
-            for (var _i = 0, _a = this.contacts; _i < _a.length; _i++) {
-                var contact = _a[_i];
-                //Regex to remove everything but number to have a pure integer string for easy search for phone numbers
-                contact['number'] = contact['phone_number'].replace(/\D/g, '');
-                //Check if phone number is international by having the string lead with 1-
-                if (contact['phone_number'].split("")[0].match("1") && contact['phone_number'].split("")[1].match("-")) {
-                    contact['international'] = true;
-                }
-                else {
-                    contact['international'] = false;
-                }
-                //Checking if the number has an extention
-                if (contact['phone_number'].match("x")) {
-                    contact['ext'] = true;
-                }
-                else {
-                    contact['ext'] = false;
+            .subscribe(function (contacts) {
+            _this.contacts = contacts;
+            if (Array.isArray(_this.contacts)) {
+                for (var _i = 0, _a = _this.contacts; _i < _a.length; _i++) {
+                    var contact = _a[_i];
+                    //Regex to remove everything but number to have a pure integer string for easy search for phone numbers
+                    contact['number'] = contact['phone_number'].replace(/\D/g, '');
+                    //Check if phone number is international by having the string lead with 1-
+                    if (contact['phone_number'].split("")[0].match("1") && contact['phone_number'].split("")[1].match("-")) {
+                        contact['international'] = true;
+                    }
+                    else {
+                        contact['international'] = false;
+                    }
+                    //Checking if the number has an extention
+                    if (contact['phone_number'].match("x")) {
+                        contact['ext'] = true;
+                    }
+                    else {
+                        contact['ext'] = false;
+                    }
                 }
             }
-        }
-        this.original = this.contacts;
+            _this.original = _this.contacts;
+        });
     };
     SearchComponent.prototype.filter = function (radio) {
         //Empty array to add filtered out contacts that met the following conditions, will be use to display the new contacts

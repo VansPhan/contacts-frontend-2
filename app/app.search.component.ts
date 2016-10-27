@@ -13,34 +13,35 @@ class SearchComponent {
 	original: Contact[];
 
 	constructor(private contactService: ContactService) {
-
+		
 	}
 
 	ngOnInit() {
 		this.contactService.getContacts()
-			.subscribe(contacts => this.contacts = contacts);
-
-		if (Array.isArray(this.contacts)) {
-			for (let contact of this.contacts) {
-				//Regex to remove everything but number to have a pure integer string for easy search for phone numbers
-				contact['number'] = contact['phone_number'].replace(/\D/g,'');
-				//Check if phone number is international by having the string lead with 1-
-				if (contact['phone_number'].split("")[0].match("1") && contact['phone_number'].split("")[1].match("-")) {
-					contact['international'] = true;
+			.subscribe(contacts => {
+				this.contacts = contacts;
+				if (Array.isArray(this.contacts)) {
+					for (let contact of this.contacts) {
+						//Regex to remove everything but number to have a pure integer string for easy search for phone numbers
+						contact['number'] = contact['phone_number'].replace(/\D/g,'');
+						//Check if phone number is international by having the string lead with 1-
+						if (contact['phone_number'].split("")[0].match("1") && contact['phone_number'].split("")[1].match("-")) {
+							contact['international'] = true;
+						}
+						else {
+							contact['international'] = false;
+						}
+						//Checking if the number has an extention
+						if (contact['phone_number'].match("x")) {
+							contact['ext'] = true;
+						}
+						else {
+							contact['ext'] = false;
+						}
+					}
 				}
-				else {
-					contact['international'] = false;
-				}
-				//Checking if the number has an extention
-				if (contact['phone_number'].match("x")) {
-					contact['ext'] = true;
-				}
-				else {
-					contact['ext'] = false;
-				}
-			}
-		}
-		this.original = this.contacts;
+				this.original = this.contacts;
+			})
 	}
 
 	filter(radio) {

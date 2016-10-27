@@ -19,6 +19,9 @@ var ContactService = (function () {
         return this.http.get('https://contacts-backend.herokuapp.com/contacts')
             .map(function (response) { return response.json(); });
     };
+    ContactService.prototype.contacts = function () {
+        return this.contacts;
+    };
     ContactService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
