@@ -1,7 +1,7 @@
 <div class="container search">
 	<form>
 		<div class="input-group">
-			<input type="text" class="form-control" ng-model="input" placeholder="Search for...">
+			<input type="text" class="form-control" [(ngModel)]="input" placeholder="Search for...">
 			<span class="input-group-btn">
 				<button class="btn btn-success" type="button" (click)="clear()">Clear</button>
 			</span>

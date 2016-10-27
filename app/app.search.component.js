@@ -13,14 +13,14 @@ var service_1 = require('./models/service');
 var SearchComponent = (function () {
     function SearchComponent(contactService) {
         this.contactService = contactService;
+        this.contacts = contactService.contacts;
     }
     SearchComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.contactService.getContacts()
             .subscribe(function (contacts) {
-            _this.contacts = contacts;
-            if (Array.isArray(_this.contacts)) {
-                for (var _i = 0, _a = _this.contacts; _i < _a.length; _i++) {
+            if (Array.isArray(_this.contactService.contacts)) {
+                for (var _i = 0, _a = _this.contactService.contacts; _i < _a.length; _i++) {
                     var contact = _a[_i];
                     //Regex to remove everything but number to have a pure integer string for easy search for phone numbers
                     contact['number'] = contact['phone_number'].replace(/\D/g, '');
@@ -40,7 +40,7 @@ var SearchComponent = (function () {
                     }
                 }
             }
-            _this.original = _this.contacts;
+            _this.original = _this.contactService.contacts;
         });
     };
     SearchComponent.prototype.filter = function (radio) {
@@ -49,7 +49,7 @@ var SearchComponent = (function () {
         //switch case that decides which radio is checked and sorts the data accordingly
         switch (radio) {
             case "all":
-                this.contacts = this.original;
+                this.contactService.contacts = this.original;
                 break;
             case "international":
                 for (var _i = 0, _a = this.original; _i < _a.length; _i++) {
@@ -58,8 +58,7 @@ var SearchComponent = (function () {
                         arr.push(contact);
                     }
                 }
-                this.contacts = arr;
-                console.log(this.contacts);
+                this.contactService.contacts = arr;
                 break;
             case "ext":
                 for (var _b = 0, _c = this.original; _b < _c.length; _b++) {
@@ -68,7 +67,7 @@ var SearchComponent = (function () {
                         arr.push(contact);
                     }
                 }
-                this.contacts = arr;
+                this.contactService.contacts = arr;
                 break;
             case "com":
                 for (var _d = 0, _e = this.original; _d < _e.length; _d++) {
@@ -77,8 +76,7 @@ var SearchComponent = (function () {
                         arr.push(contact);
                     }
                 }
-                this.contacts = arr;
-                console.log(this.contacts);
+                this.contactService.contacts = arr;
                 break;
             case "email":
                 //I push each object into array in order to make an immutable copy of contacts array
@@ -86,7 +84,14 @@ var SearchComponent = (function () {
                     var contact = _g[_f];
                     arr.push(contact);
                 }
-                this.contacts = arr;
+                function compare(a, b) {
+                    if (a.email_address < b.email_address)
+                        return -1;
+                    if (a.email_address > b.email_address)
+                        return 1;
+                    return 0;
+                }
+                this.contactService.contacts = arr.sort(compare);
                 break;
             default:
                 break;

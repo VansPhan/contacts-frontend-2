@@ -13,7 +13,6 @@ export class ContactService {
 			.map(response => <Contact[]>response.json());
 	}
 
-	contacts() {
-		return this.contacts;
-	}
+	contacts = [];
+
 }

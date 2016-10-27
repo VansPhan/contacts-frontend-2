@@ -18,7 +18,9 @@ var ContactsComponent = (function () {
     ContactsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.contactService.getContacts()
-            .subscribe(function (contacts) { return _this.contacts = contacts; });
+            .subscribe(function (contacts) {
+            _this.contactService.contacts = contacts;
+        });
     };
     ContactsComponent = __decorate([
         core_1.Component({

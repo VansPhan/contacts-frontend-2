@@ -14,13 +14,11 @@ require('rxjs/add/operator/map');
 var ContactService = (function () {
     function ContactService(http) {
         this.http = http;
+        this.contacts = [];
     }
     ContactService.prototype.getContacts = function () {
         return this.http.get('https://contacts-backend.herokuapp.com/contacts')
             .map(function (response) { return response.json(); });
-    };
-    ContactService.prototype.contacts = function () {
-        return this.contacts;
     };
     ContactService = __decorate([
         core_1.Injectable(), 

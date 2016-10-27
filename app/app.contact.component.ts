@@ -4,6 +4,7 @@ import { SearchComponent } from './app.search.component';
 import { ContactService } from './models/service'
 
 
+
 @Component({
 	selector: 'contact',
 	templateUrl: 'app/app.contact.component.html',
@@ -20,7 +21,10 @@ class ContactsComponent {
 
 	ngOnInit() {
 		this.contactService.getContacts()
-			.subscribe(contacts => this.contacts = contacts);
+			.subscribe(contacts => {
+				this.contactService.contacts = contacts
+			});
+
 	}
 }
 
